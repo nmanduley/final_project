@@ -2,3 +2,5 @@
 .ipynb_checkpoints
 __init__.py
 __pycache__/
+
+/NLP_model
