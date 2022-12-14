@@ -8,6 +8,6 @@ model = AutoModelForSequenceClassification.from_pretrained(roberta)
 tokenizer = AutoTokenizer.from_pretrained(roberta)
 
 # Save model
-path = os.path.normpath(os.getcwd() + '/NLP_model')
+path = os.path.join(os.getcwd(), 'NLP_model')
 model.save_pretrained(path)
 tokenizer.save_pretrained(path)
