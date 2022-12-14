@@ -9,7 +9,7 @@ import os
 # start_time = time.time()
 
 # Load model and tokenizer
-# path = os.path.normpath(os.getcwd() + '/NLP_model')
+# path = os.path.join(os.getcwd(), 'NLP_model')
 path = 'cardiffnlp/twitter-roberta-base-sentiment'    # To load it directly from the source
 model = AutoModelForSequenceClassification.from_pretrained(path)
 tokenizer = AutoTokenizer.from_pretrained(path)

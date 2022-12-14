@@ -5,12 +5,12 @@ import pandas as pd
 
 # Read configs
 config = configparser.ConfigParser()
-filepath = os.path.normpath(os.getcwd() + '/twitter_api/config.ini')
+filepath = os.path.join(os.getcwd(), 'twitter_api', 'config.ini')
 config.read(filepath)
 
-api_key = config['twitter']['API_KEY']
-api_key_secret = config['twitter']['API_KEY_SECRET']
-access_token = config['twitter']['ACCESS_TOKEN']
+api_key             = config['twitter']['API_KEY']
+api_key_secret      = config['twitter']['API_KEY_SECRET']
+access_token        = config['twitter']['ACCESS_TOKEN']
 access_token_secret = config['twitter']['ACCESS_TOKEN_SECRET']
 
 # Authentication
@@ -21,10 +21,10 @@ api = tweepy.API(auth)
 
 # Search tweets
 hashtags = ['#stocks', '#stocksmarket']
-keywords = ['Amazon', 'AMZN']
+keywords = ['Google', 'GOOGL', 'google']
 # search_criteria = hashtags+keywords
 search_criteria = keywords
-limit = 100
+limit = 10
 
 tweets = tweepy.Cursor(api.search_tweets,\
     q=search_criteria,
@@ -33,11 +33,11 @@ tweets = tweepy.Cursor(api.search_tweets,\
     lang='en').items(limit)
 
 # Create dataframe 
-columns = ['User', 'Tweet']
+columns = ['Date', 'User', 'Tweet']
 data = []
 
 for tweet in tweets:
-    data.append([tweet.user.screen_name, tweet.full_text])
+    data.append([tweet.created_at, tweet.user.screen_name, tweet.full_text])
 
 df = pd.DataFrame(data, columns=columns)
-print(df['Tweet'][2])
+print(df['Tweet'])
