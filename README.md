@@ -5,6 +5,7 @@
 
 ## General Description
 A tool to assist in the analysis of the stock market making use of:
+- Facial recognition to register a new user (and maybe also log-in)
 - AI models to forecast tendencies in the stock market using Yahoo Finance
 - Natural Language Processing (NLP) to evaluate social sentiment (Twitter, Reddit...) for specific assets
 - An organized and up-to-date list of institutional investors from the SEC platform

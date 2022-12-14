@@ -22,20 +22,22 @@ api = tweepy.API(auth)
 # Search tweets
 hashtags = ['#stocks', '#stocksmarket']
 keywords = ['Amazon', 'AMZN']
-search_criteria = hashtags+keywords
-limit = 10
+# search_criteria = hashtags+keywords
+search_criteria = keywords
+limit = 100
 
 tweets = tweepy.Cursor(api.search_tweets,\
     q=search_criteria,
     count=10,
-    tweet_mode='extended').items(limit)
+    tweet_mode='extended',
+    lang='en').items(limit)
 
 # Create dataframe 
-columns = ['Time', 'User', 'Tweet']
+columns = ['User', 'Tweet']
 data = []
 
 for tweet in tweets:
-    data.append([tweet.created_at, tweet.user.screen_name, tweet.full_text])
+    data.append([tweet.user.screen_name, tweet.full_text])
 
 df = pd.DataFrame(data, columns=columns)
-df.head()
+print(df['Tweet'][2])
