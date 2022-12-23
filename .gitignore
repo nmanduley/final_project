@@ -4,6 +4,7 @@ __init__.py
 __pycache__/
 config.ini
 
+/core
 /NLP_model
 /facial_recognition/data/negative
 /facial_recognition/lfw.tgz
