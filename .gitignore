@@ -7,4 +7,6 @@ config.ini
 /core
 /NLP_model
 /facial_recognition/data/negative
+/facial_recognition/data/positive
+/facial_recognition/data/anchor
 /facial_recognition/lfw.tgz
