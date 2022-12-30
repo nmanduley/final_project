@@ -3,10 +3,12 @@
 __init__.py
 __pycache__/
 config.ini
+siamese_model.h5
 
 /core
 /NLP_model
 /facial_recognition/data/negative
 /facial_recognition/data/positive
 /facial_recognition/data/anchor
+/facial_recognition/training_checkpoints
 /facial_recognition/lfw.tgz
