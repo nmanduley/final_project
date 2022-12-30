@@ -3,7 +3,6 @@
 __init__.py
 __pycache__/
 config.ini
-siamese_model.h5
 
 /core
 /NLP_model
