@@ -9,5 +9,6 @@ config.ini
 /facial_recognition/data/negative
 /facial_recognition/data/positive
 /facial_recognition/data/anchor
+/facial_recognition/app_data
 /facial_recognition/training_checkpoints
 /facial_recognition/lfw.tgz
