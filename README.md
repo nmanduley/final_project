@@ -1,5 +1,3 @@
-# AISA (<u>AI</u> <u>S</u>tocks <u>A</u>nalyzer)
-
 ## Final Project: Bootcamp Big Data and Machine Learning (BDML) - CORE Code School
 ### Author: Nicolas Manduley
 
