@@ -1,61 +1,70 @@
 from fastapi import APIRouter
-from ..data.connection import users_data
+from ..data.connection import users_data, users_pass
+from ..config import API_PASS_KEY, DBURL
+
 from bson import json_util
 from json import loads
 
 router = APIRouter()
 
+testvar = DBURL
+@router.get("/printkey")
+def get_key():
+    return {"Test": testvar}
+
+
 # # endpoints
-# @router.get("/confirmed/{country}")
-# def get_confirmed_by_country(country:str):
-#     filt = {"Country/Region":country}
-#     project = {"Country/Region":0, "Province/State":0, "Lat":0, "Long":0, "_id":0}
-#     dates = users_data.find(filt, project)
-#     dates = list(dates)[0]
-#     if len(dates) == 0:
-#         return {"Error":"Empty data or no data available"}
-#     return loads(json_util.dumps(dates))
+# Get data (id, first name, last name) of a user using the username
+@router.get("/user/{username}")
+def get_names(username:str):
+    filt = {"username":username}
+    project = {"_id":0}
+    user_info = users_data.find(filt, project)
+    user_info = list(user_info)[0]
+    if len(user_info) == 0:
+        return {"Error":"Empty data or no data available"}
+    return loads(json_util.dumps(user_info))
 
+# Get all first names
+@router.get("/first_names")
+def get_all_usernames():
+    filt = {}
+    project = {"_id":0, "first_name":1}
+    all_first_names = users_data.find(filt, project)
+    all_first_names = list(all_first_names)
+    if len(all_first_names) == 0:
+        return {"Error":"Empty data or no data available"}
+    return loads(json_util.dumps(all_first_names))
 
-# @router.get("/deaths/{country}")
-# def get_deaths_by_country(country:str):
-#     filt = {"Country/Region":country}
-#     project = {"Country/Region":0, "Province/State":0,  "Lat":0, "Long":0, "_id":0}
-#     dates = deaths_global.find(filt, project)
-#     dates = list(dates)[0]
-#     if len(dates) == 0:
-#         return {"Error":"Empty data or no data available"}
-#     return loads(json_util.dumps(dates))
+# Get all users
+@router.get("/users")
+def get_all_usernames():
+    filt = {}
+    project = {"_id":0, "username":1}
+    all_users = users_data.find(filt, project)
+    all_users = list(all_users)
+    if len(all_users) == 0:
+        return {"Error":"Empty data or no data available"}
+    return loads(json_util.dumps(all_users))
 
+# Get all password hashes
+@router.get("/hashes/temporalpass")
+def get_all_hashes():
+    filt = {}
+    project = {"_id":0, "password":1}
+    all_passwords = users_pass.find(filt, project)
+    all_passwords = list(all_passwords)
+    if len(all_passwords) == 0:
+        return {"Error":"Empty data or no data available"}
+    return loads(json_util.dumps(all_passwords))
 
-# @router.get("/recovered/{country}")
-# def get_recovered_by_country(country:str):
-#     filt = {"Country/Region":country}
-#     project = {"Country/Region":0, "Province/State":0, "Lat":0, "Long":0, "_id":0}
-#     dates = recovered_global.find(filt, project)
-#     dates = list(dates)[0]
-#     if len(dates) == 0:
-#         return {"Error":"Empty data or no data available"}
-#     return loads(json_util.dumps(dates))
-
-
-# @router.get("/coordinates/{country}")
-# def get_coordinates(country:str):
-#     filt = {"Country/Region":country}
-#     project = {"Lat":1, "Long":1, "_id":0}
-#     coords = confirmed_global.find(filt, project)
-#     coords = list(coords)[0]
-#     if len(coords) == 0:
-#         return {"Error":"Empty data or no data available"}
-#     return loads(json_util.dumps(coords))
-
-
-# @router.get("/countries")
-# def get_countries():
-#     filt = {}
-#     project = {"Country/Region":1, "_id":0}
-#     countries = confirmed_global.find(filt, project)
-#     countries = list(countries)
-#     if len(countries) == 0:
-#         return {"Error":"Empty data or no data available"}
-#     return loads(json_util.dumps(countries))
+# Get user images
+@router.get("/images/{username}")
+def get_all_hashes(username:str):
+    filt = {"username":username}
+    project = {"_id":0, "images":1}
+    all_images = users_pass.find(filt, project)
+    all_images = list(all_images)
+    if len(all_images) == 0:
+        return {"Error":"Empty data or no data available"}
+    return loads(json_util.dumps(all_images))

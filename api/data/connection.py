@@ -7,15 +7,16 @@ client = MongoClient(DBURL)
 
 db = client.get_database("users")
 users_data = db["database"]
+users_pass = db["passwords"]
 
-def find_collection(collection, filter={}, project={"_id": 0}):
-    return db[collection].find(filter, project)
+# def find_collection(collection, filter={}, project={"_id": 0}):
+#     return db[collection].find(filter, project)
 
-def paginate(page=0, per_page=10):
-    def inner(mongodb_cursor):
-        data = mongodb_cursor.limit(per_page).skip(per_page*page)
-        return {
-            "page": page,
-            "results": loads(json_util.dumps(data))
-        }
-    return inner
+# def paginate(page=0, per_page=10):
+#     def inner(mongodb_cursor):
+#         data = mongodb_cursor.limit(per_page).skip(per_page*page)
+#         return {
+#             "page": page,
+#             "results": loads(json_util.dumps(data))
+#         }
+#     return inner
