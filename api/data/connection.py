@@ -1,9 +1,11 @@
 from pymongo import MongoClient
-from bson import json_util
-from json import loads
-from ..config import DBURL
+# from bson import json_util
+# from json import loads
+from config import DBURL
+import certifi
 
-client = MongoClient(DBURL)
+ca = certifi.where()
+client = MongoClient(DBURL, tlsCAFile=ca, uuidRepresentation='standard')
 
 db = client.get_database("users")
 users_data = db["database"]

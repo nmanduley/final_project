@@ -1,21 +1,15 @@
 from fastapi import APIRouter
-from ..data.connection import users_data, users_pass
-from ..config import API_PASS_KEY, DBURL
+from data.connection import users_data, users_pass
+from config import API_PASS_KEY
 
 from bson import json_util
 from json import loads
 
 router = APIRouter()
 
-testvar = DBURL
-@router.get("/printkey")
-def get_key():
-    return {"Test": testvar}
-
-
 # # endpoints
 # Get data (id, first name, last name) of a user using the username
-@router.get("/user/{username}")
+@router.get("/user/{username:str}")
 def get_names(username:str):
     filt = {"username":username}
     project = {"_id":0}
@@ -36,7 +30,7 @@ def get_all_usernames():
         return {"Error":"Empty data or no data available"}
     return loads(json_util.dumps(all_first_names))
 
-# Get all users
+# Get all usernames
 @router.get("/users")
 def get_all_usernames():
     filt = {}
@@ -48,19 +42,22 @@ def get_all_usernames():
     return loads(json_util.dumps(all_users))
 
 # Get all password hashes
-@router.get("/hashes/temporalpass")
-def get_all_hashes():
-    filt = {}
-    project = {"_id":0, "password":1}
-    all_passwords = users_pass.find(filt, project)
-    all_passwords = list(all_passwords)
-    if len(all_passwords) == 0:
-        return {"Error":"Empty data or no data available"}
-    return loads(json_util.dumps(all_passwords))
+@router.get("/hashes/{password:str}")
+def get_all_hashes(password:str):
+    if password == API_PASS_KEY:
+        filt = {}
+        project = {"_id":0, "password":1}
+        all_passwords = users_pass.find(filt, project)
+        all_passwords = list(all_passwords)
+        if len(all_passwords) == 0:
+            return {"Error":"Empty data or no data available"}
+        return loads(json_util.dumps(all_passwords))
+    else:
+        return {"API":"Wrong password"}
 
 # Get user images
 @router.get("/images/{username}")
-def get_all_hashes(username:str):
+def get_images(username:str):
     filt = {"username":username}
     project = {"_id":0, "images":1}
     all_images = users_pass.find(filt, project)
